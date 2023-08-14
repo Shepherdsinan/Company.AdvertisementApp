@@ -16,4 +16,8 @@
       <ProjectReference Include="..\Company.AdvertisementApp.Entities\Company.AdvertisementApp.Entities.csproj" />
     </ItemGroup>
 
+
+
+
+
 </Project>
