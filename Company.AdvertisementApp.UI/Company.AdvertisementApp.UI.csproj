@@ -24,7 +24,16 @@
     <ItemGroup>
       <_ContentIncludedByDefault Remove="wwwroot\js\site.js" />
       <_ContentIncludedByDefault Remove="wwwroot\themes\startbootstrap-one-page-wonder-gh-pages\css\styles.css" />
+
+
+
     </ItemGroup>
+
+
+
+
+
+
 
 
 
