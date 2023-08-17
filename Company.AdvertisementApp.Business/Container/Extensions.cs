@@ -17,16 +17,29 @@ public static class Extensions
         var mapperConfiguration = new MapperConfiguration(opt =>
         {
             opt.AddProfile(new ProvidedServiceProfile());
+            opt.AddProfile(new AdvertisementProfile());
+            opt.AddProfile(new AppUserProfile());
+            opt.AddProfile(new GenderProfile());
+            
         });
         var mapper = mapperConfiguration.CreateMapper();
         services.AddSingleton(mapper);
         services.AddScoped<IUow, Uow>();
         services.AddScoped<IProvidedServiceManager, ProvidedServiceManager>();
+        services.AddScoped<IAdvertisementManager, AdvertisementManager>();
+        services.AddScoped<IAppUserManager, AppUserManager>();
+        services.AddScoped<IGenderManager, GenderManager>();
     }
 
     public static void CustomerValidator(this IServiceCollection services)
     {
         services.AddTransient<IValidator<ProvidedServiceCreateDto>, ProvidedServiceCreateDtoValidator>();
         services.AddTransient<IValidator<ProvidedServiceUpdateDto>, ProvidedServiceUpdateDtoValidator>();
+        services.AddTransient<IValidator<AdvertisementCreateDto>, AdvertisementCreateDtoValidator>();
+        services.AddTransient<IValidator<AdvertisementUpdateDto>, AdvertisementUpdateDtoValidator>();
+        services.AddTransient<IValidator<AppUserCreateDto>, AppUserCreateDtoValidator>();
+        services.AddTransient<IValidator<AppUserUpdateDto>, AppUserUpdateDtoValidator>();
+        services.AddTransient<IValidator<GenderCreateDto>, GenderCreateDtoValidator>();
+        services.AddTransient<IValidator<GenderUpdateDto>, GenderUpdateDtoValidator>();
     }
 }
