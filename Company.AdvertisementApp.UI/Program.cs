@@ -4,6 +4,8 @@ using Company.AdvertisementApp.Business.Interfaces;
 using Company.AdvertisementApp.Business.Mappings.AutoMapper;
 using Company.AdvertisementApp.Business.Services;
 using Company.AdvertisementApp.DataAccess.Contexts;
+using Company.AdvertisementApp.UI.Models;
+using Company.AdvertisementApp.UI.ValidationRules;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +15,7 @@ builder.Services.AddDbContext<AdvertisementContext>(options => options.UseSqlite
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.ContainerDependencies();
 builder.Services.CustomerValidator();
+builder.Services.AddTransient<IValidator<UserCreateModel>, UserCreateModelValidator>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
