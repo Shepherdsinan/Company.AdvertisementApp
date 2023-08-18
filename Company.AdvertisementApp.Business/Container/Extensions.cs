@@ -12,18 +12,8 @@ namespace Company.AdvertisementApp.Business.Container;
 
 public static class Extensions
 {
-    public static void ContainerDependencies(this IServiceCollection services)
+    public static void DependencyExtension(this IServiceCollection services)
     {
-        var mapperConfiguration = new MapperConfiguration(opt =>
-        {
-            opt.AddProfile(new ProvidedServiceProfile());
-            opt.AddProfile(new AdvertisementProfile());
-            opt.AddProfile(new AppUserProfile());
-            opt.AddProfile(new GenderProfile());
-            
-        });
-        var mapper = mapperConfiguration.CreateMapper();
-        services.AddSingleton(mapper);
         services.AddScoped<IUow, Uow>();
         services.AddScoped<IProvidedServiceManager, ProvidedServiceManager>();
         services.AddScoped<IAdvertisementManager, AdvertisementManager>();
@@ -42,4 +32,5 @@ public static class Extensions
         services.AddTransient<IValidator<GenderCreateDto>, GenderCreateDtoValidator>();
         services.AddTransient<IValidator<GenderUpdateDto>, GenderUpdateDtoValidator>();
     }
+
 }
