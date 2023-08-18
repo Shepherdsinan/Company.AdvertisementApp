@@ -36,6 +36,7 @@ public class Service<CreateDto, UpdateDto, ListDto, T> : IService<CreateDto, Upd
         {
             var createdEntity = _mapper.Map<T>(dto);
             await _uow.GetRepository<T>().CreateAsync(createdEntity);
+            await _uow.SaveChangesAsync();
             return new Response<CreateDto>(ResponseType.Success, dto);
         }
 
@@ -64,6 +65,7 @@ public class Service<CreateDto, UpdateDto, ListDto, T> : IService<CreateDto, Upd
         if (data == null)
             return new Response(ResponseType.NotFound, $"Kayıt bulunamadı.ID:{id}");
         _uow.GetRepository<T>().Remove(data);
+        await _uow.SaveChangesAsync();
         return new Response(ResponseType.Success);
     }
 
@@ -77,6 +79,7 @@ public class Service<CreateDto, UpdateDto, ListDto, T> : IService<CreateDto, Upd
                 return new Response<UpdateDto>(ResponseType.NotFound, $"Kayıt bulunamadı.ID:{dto.Id}");
             var entity = _mapper.Map<T>(dto);
             _uow.GetRepository<T>().Update(entity, unChangedData);
+            await _uow.SaveChangesAsync();
             return new Response<UpdateDto>(ResponseType.Success, dto);
         }
 
