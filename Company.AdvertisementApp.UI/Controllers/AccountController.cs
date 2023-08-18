@@ -1,4 +1,7 @@
-﻿using Company.AdvertisementApp.Business.Interfaces;
+﻿using AutoMapper;
+using Company.AdvertisementApp.Business.Interfaces;
+using Company.AdvertisementApp.Dto;
+using Company.AdvertisementApp.UI.Extensions;
 using Company.AdvertisementApp.UI.Models;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
@@ -10,11 +13,15 @@ public class AccountController : Controller
 {
     private readonly IGenderManager _genderManager;
     private readonly IValidator<UserCreateModel>     _userCreateModelValidator;
+    private readonly IAppUserManager _appUserManager;
+    private readonly IMapper _mapper;
 
-    public AccountController(IGenderManager genderManager, IValidator<UserCreateModel> userCreateModelValidator)
+    public AccountController(IGenderManager genderManager, IValidator<UserCreateModel> userCreateModelValidator , IAppUserManager appUserManager, IMapper mapper)
     {
         _genderManager = genderManager;
         _userCreateModelValidator = userCreateModelValidator;
+        _appUserManager = appUserManager;
+        _mapper = mapper;
     }
 
     public async Task<IActionResult> SignUp()
@@ -33,7 +40,9 @@ public class AccountController : Controller
         var resultuserCreateModelValidator = _userCreateModelValidator.Validate(userCreateModel);
         if (resultuserCreateModelValidator.IsValid)
         {
-            return View(userCreateModel);
+            var dto = _mapper.Map<AppUserCreateDto>(userCreateModel);
+            var appUserCreateResponse = await _appUserManager.CreateAsync(dto);
+            return this.ResponseRedirectAction(appUserCreateResponse, "SignUp");
         }
 
         foreach (var error in resultuserCreateModelValidator.Errors)
