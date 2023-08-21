@@ -8,6 +8,29 @@ public class AdvertisementAppUserStatusConfiguration : IEntityTypeConfiguration<
 {
     public void Configure(EntityTypeBuilder<AdvertisementAppUserStatus> builder)
     {
-        builder.Property(x=>x.Definition).HasMaxLength(300).IsRequired();
+        builder.Property(x => x.Definition).HasMaxLength(300).IsRequired();
+        builder.HasData(new AdvertisementAppUserStatus[]
+        {
+            new()
+            {
+                Id = 1,
+                Definition = "Başvurdu"
+            },
+            new()
+            {
+                Id = 2,
+                Definition = "Mülakata Çağrıldı"
+            },
+            new()
+            {
+                Id = 3,
+                Definition = "Olumlu Sonuçlandı"
+            },
+            new()
+            {
+                Id = 4,
+                Definition = "Olumsuz Sonuçlandı"
+            }
+        });
     }
 }
