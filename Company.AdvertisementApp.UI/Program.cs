@@ -9,6 +9,7 @@ using Company.AdvertisementApp.UI.Mappings.AutoMapper;
 using Company.AdvertisementApp.UI.Models;
 using Company.AdvertisementApp.UI.ValidationRules;
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,7 +28,18 @@ profiles.Add(new UserCreateModelProfile());
 var mapperConfiguration = new MapperConfiguration(opt => { opt.AddProfiles(profiles); });
 var mapper = mapperConfiguration.CreateMapper();
 builder.Services.AddSingleton(mapper);
-
+//Custom Cookie based authentication
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(opt =>
+{
+    opt.Cookie.Name = "Company.AdvertisementApp";
+    opt.Cookie.HttpOnly = true;
+    opt.Cookie.SameSite = SameSiteMode.Strict;
+    opt.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+    opt.ExpireTimeSpan = TimeSpan.FromDays(20);
+    opt.LoginPath = new PathString("/Account/SignIn");
+    opt.LogoutPath = new PathString("/Account/LogOut");
+    opt.AccessDeniedPath = new PathString("/Account/AccessDenied");
+});
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -45,7 +57,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication(); //Custom Cookie based authentication
 app.UseAuthorization();
 
 app.MapControllerRoute(
