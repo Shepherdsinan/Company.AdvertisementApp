@@ -12,7 +12,8 @@ public static class ProfileHelper
             new ProvidedServiceProfile(),
             new AdvertisementProfile(),
             new AppUserProfile(),
-            new GenderProfile()
+            new GenderProfile(),
+            new AppRoleProfile()
         };
 
     }
