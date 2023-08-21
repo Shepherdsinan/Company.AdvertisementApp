@@ -61,4 +61,14 @@ public class AppUserManager : Service<AppUserCreateDto, AppUserUpdateDto, AppUse
         }
         return new Response<AppUserListDto>(ResponseType.ValidationError,"Username and password is not empty");
     }
+
+    public async Task<IResponse<List<AppRoleListDto>>> GetRolesByUserIdAsync(int userId)
+    {
+        var roles = await _uow.GetRepository<AppRole>().GetAllAsync(x=>x.AppUserRoles.Any(y=>y.AppUserId==userId));
+        if(roles == null)
+            return new Response<List<AppRoleListDto>>(ResponseType.NotFound,"Roles not found");
+        
+        var dto = _mapper.Map<List<AppRoleListDto>>(roles);
+        return new Response<List<AppRoleListDto>>(ResponseType.Success,dto);
+    }
 }

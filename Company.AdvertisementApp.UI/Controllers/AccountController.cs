@@ -71,9 +71,17 @@ public class AccountController : Controller
         var result = await _appUserManager.CheckUserAsync(dto);
         if (result.ResponseType == Common.ResponseType.Success)
         {
-            var claims = new List<Claim>
+            var roleResult = await _appUserManager.GetRolesByUserIdAsync(result.Data.Id);
+            var claims = new List<Claim>();
+
+            if (roleResult.ResponseType == Common.ResponseType.Success)
             {
-            };
+                foreach (var roles in roleResult.Data)
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, roles.Definition));
+                }
+            }
+            claims.Add(new Claim(ClaimTypes.NameIdentifier, result.Data.Id.ToString()));
             var claimsIdentity = new ClaimsIdentity(
                 claims, CookieAuthenticationDefaults.AuthenticationScheme);
             
@@ -84,8 +92,15 @@ public class AccountController : Controller
             };
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity), authProperties);
+            return RedirectToAction("Index", "Home");
         }
-        ModelState.AddModelError("",result.Message);
+        ModelState.AddModelError("Username and password is not correct",result.Message);
         return View(dto);
+    }
+
+    public async Task<IActionResult> LogOut()
+    {
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        return RedirectToAction("Index", "Home");
     }
 }
