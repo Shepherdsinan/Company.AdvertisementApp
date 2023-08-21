@@ -12,5 +12,15 @@ public class AppUserRoleConfiguration : IEntityTypeConfiguration<AppUserRole>
 
         builder.HasOne(x => x.AppRole).WithMany(x => x.AppUserRoles).HasForeignKey(x => x.AppRoleId);        
         builder.HasOne(x=>x.AppUser).WithMany(x=>x.AppUserRoles).HasForeignKey(x=>x.AppUserId);
+        // Seed Data of Admin
+        builder.HasData(new AppUserRole[]
+        {
+        new()
+        {
+            Id = 1,
+            AppUserId = 1,
+            AppRoleId = 1
+        }
+        });
     }
 }

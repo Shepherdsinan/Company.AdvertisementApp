@@ -15,5 +15,18 @@ public class AppUserConfiguration : IEntityTypeConfiguration<AppUser>
         builder.Property(x=>x.Password).HasMaxLength(50).IsRequired();
         
         builder.HasOne(x=>x.Gender).WithMany(x=>x.AppUsers).HasForeignKey(x=>x.GenderId);
+        builder.HasData(new AppUser[]
+        {
+            new()
+            {
+                Id=1,
+                FirstName = "Admin",
+                SurName = "Admin",
+                UserName = "Admin",
+                Password = "Admin",
+                GenderId = 1,
+                PhoneNumber = "1234567890"
+            }
+        });
     }
 }
