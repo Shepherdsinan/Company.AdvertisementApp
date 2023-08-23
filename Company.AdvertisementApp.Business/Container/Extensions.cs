@@ -19,6 +19,7 @@ public static class Extensions
         services.AddScoped<IAdvertisementManager, AdvertisementManager>();
         services.AddScoped<IAppUserManager, AppUserManager>();
         services.AddScoped<IGenderManager, GenderManager>();
+        services.AddScoped<IAdvertisementAppUserManager, AdvertisementAppUserManager>();
     }
 
     public static void CustomerValidator(this IServiceCollection services)
@@ -32,7 +33,8 @@ public static class Extensions
         services.AddTransient<IValidator<AppUserLoginDto>, AppUserLoginDtoValidator>();
         services.AddTransient<IValidator<GenderCreateDto>, GenderCreateDtoValidator>();
         services.AddTransient<IValidator<GenderUpdateDto>, GenderUpdateDtoValidator>();
-        
+        services.AddTransient<IValidator<AdvertisementAppUserCreateDto>, AdvertisementAppUserCreateDtoValidator>();
+
     }
 
 }
