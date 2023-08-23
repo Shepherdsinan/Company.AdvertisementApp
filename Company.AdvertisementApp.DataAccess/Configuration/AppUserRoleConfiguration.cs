@@ -20,6 +20,12 @@ public class AppUserRoleConfiguration : IEntityTypeConfiguration<AppUserRole>
             Id = 1,
             AppUserId = 1,
             AppRoleId = 1
+        },
+        new()
+        {
+            Id = 2,
+            AppUserId = 2,
+            AppRoleId = 2
         }
         });
     }

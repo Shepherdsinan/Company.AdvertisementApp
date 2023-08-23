@@ -26,6 +26,16 @@ public class AppUserConfiguration : IEntityTypeConfiguration<AppUser>
                 Password = "Admin",
                 GenderId = 1,
                 PhoneNumber = "1234567890"
+            },
+            new()
+            {
+                Id = 2,
+                FirstName = "Member",
+                SurName = "Member",
+                UserName = "Member",
+                Password = "Member",
+                GenderId = 2,
+                PhoneNumber = "1234567890"
             }
         });
     }
