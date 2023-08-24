@@ -25,7 +25,7 @@ public class AdvertisementManager :
     public async Task<IResponse<List<AdvertisementListDto>>> GetActiveAsync()
     {
         var data = await _uow.GetRepository<Advertisement>()
-            .GetAllAsync(x => x.Status, x => x.CreateDate, Common.Enums.OrderByType.DESC);
+            .GetAllAsync(x => x.Status, x => x.CreatedDate, Common.Enums.OrderByType.DESC);
         var dto = _mapper.Map<List<AdvertisementListDto>>(data);
         return new Response<List<AdvertisementListDto>>(ResponseType.Success, dto);
     }

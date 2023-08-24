@@ -20,16 +20,16 @@
             </h2>
             <div id="collapse-@Model[i].Id" class="accordion-collapse collapse @(i==0?"show":"")" aria-labelledby="heading-@Model[i].Id" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                    @Model[i].Description
+                    @Html.Raw(Model[i].Description)
                     <div>
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <a asp-controller="Advertisement" asp-action="Send" asp-route-advertisementId="@Model[i].Id">Başvur</a>
+                            <a asp-controller="Advertisement" asp-action="Send" asp-route-advertisementId="@Model[i].Id">Apply</a>
                         }
                         else
                         {
                             <div class="alert alert-light text-center lead">
-                                Başvuru yapabilmeniz için giriş yapmanız gerekmektedir.<a asp-action="SignIn" asp-controller="Account">Sign In</a>
+                                You must be logged in to apply.<a asp-action="SignIn" asp-controller="Account">Sign In</a>
                             </div>
                         }
                     </div>

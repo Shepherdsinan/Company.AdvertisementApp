@@ -24,11 +24,6 @@ public class AdvertisementAppUserStatusConfiguration : IEntityTypeConfiguration<
             new()
             {
                 Id = 3,
-                Definition = "Olumlu Sonuçlandı"
-            },
-            new()
-            {
-                Id = 4,
                 Definition = "Olumsuz Sonuçlandı"
             }
         });

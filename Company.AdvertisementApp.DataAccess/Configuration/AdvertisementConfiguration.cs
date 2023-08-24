@@ -10,7 +10,7 @@ public class AdvertisementConfiguration : IEntityTypeConfiguration<Advertisement
     {
         builder.Property(x => x.Title).HasMaxLength(100).IsRequired();
         builder.Property(x => x.Description).HasColumnType("ntext").IsRequired();
-        builder.Property(x => x.CreateDate).HasDefaultValueSql("getdate()");
+        builder.Property(x => x.CreatedDate).HasDefaultValueSql("date('now')");
         //Example seed data
         builder.HasData(new Advertisement[]
         {
@@ -20,7 +20,7 @@ public class AdvertisementConfiguration : IEntityTypeConfiguration<Advertisement
                 Title = "Senior Software Engineer",
                 Status = true,
                 Description = "Senior Software Engineer",
-                CreateDate = "2021-02-02"
+                CreatedDate = new DateTime(2021,02,02) //"2021-02-02"
                 
             },
             new()
@@ -29,7 +29,7 @@ public class AdvertisementConfiguration : IEntityTypeConfiguration<Advertisement
                 Title = "Software Engineer",
                 Status = true,
                 Description = "Software Engineer",
-                CreateDate = "2021-01-02"
+                CreatedDate = new DateTime(2021,01,02) //"2021-01-02"
             },
             new()
             {
@@ -37,7 +37,7 @@ public class AdvertisementConfiguration : IEntityTypeConfiguration<Advertisement
                 Title = "Junior Software Engineer",
                 Status = true,
                 Description = "Junior Software Engineer",
-                CreateDate = "2021-03-02"
+                CreatedDate = new DateTime(2021,03,02) //"2021-03-02"
             },
             new()
             {
@@ -45,7 +45,7 @@ public class AdvertisementConfiguration : IEntityTypeConfiguration<Advertisement
                 Title = "Business Analyst",
                 Status = true,
                 Description = "Business Analyst",
-                CreateDate = "2021-02-04"
+                CreatedDate =  new DateTime(2021,02,04)//"2021-02-04"
             },
             new()
             {
@@ -53,7 +53,7 @@ public class AdvertisementConfiguration : IEntityTypeConfiguration<Advertisement
                 Title = "Business Analyst",
                 Status = false,
                 Description = "Business Analyst",
-                CreateDate = "2020-02-04"
+                CreatedDate =  new DateTime(2020,02,04)//"2020-02-04"
             },
         });
     }
