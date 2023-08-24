@@ -9,5 +9,6 @@ public class AdvertisementAppUserProfile : Profile
     public AdvertisementAppUserProfile()
     {
         CreateMap<AdvertisementAppUser, AdvertisementAppUserCreateDto>().ReverseMap();
+        CreateMap<AdvertisementAppUser, AdvertisementAppUserListDto>().ReverseMap();
     }
 }
